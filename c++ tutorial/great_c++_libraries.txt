@@ -1,0 +1,74 @@
+My list of great C++ libraries
+
+Even bigger list curated here https://github.com/fffaraz/awesome-cpp
+
+fmt - https://github.com/fmtlib/fmt
+    Uses python style print and formatting library
+    like printf & co, but with type checking and more ergonomic 
+    is currently being standardized, so look forward to it in the future
+
+json - https://github.com/nlohmann/json
+    easy to use & efficient json handling library for C++
+
+rapid-json - https://github.com/Tencent/rapidjson
+    very fast json library
+    my opinion that json shouldn't be your bottleneck, but its whatevs
+
+stb-image - https://github.com/nothings/stb/blob/master/stb_image.h
+    easy to use image loading library
+    supports several formats   
+
+GLFW - https://github.com/glfw/glfw
+    Cross platform Window & input wrapper
+    great for opengl and vulkan
+    
+SDL - http://www.libsdl.org/
+    Cross platform window, input, and sound manager
+    supports directX, opengl, and vulkan 
+
+SFML - https://github.com/SFML/SFML
+    Great 2D focused library that supports visuals, audio, and networking
+    Its a step above sdl & glfw, but not too much
+    Also can be used to setup opengl for 3d contexts
+
+glm - https://glm.g-truc.net/0.9.9/index.html
+    OpenGL math library
+    Based on GLSL syntax. 
+
+ImGUI - https://github.com/ocornut/imgui
+    debug gui library
+    super easy to setup and use
+    great for developers and tools
+    includes code for integrating into most graphics API's
+
+boost.ASIO - https://think-async.com
+    networking library that is asynchronous and low level 
+
+Assimp - https://github.com/assimp/assimp
+    Loads many 3D model formats
+
+tinyobjloader - https://github.com/syoyo/tinyobjloader
+    OBJ file format loader
+    simple & easy to use
+
+Bullet - https://github.com/bulletphysics/bullet3
+    3D physics engine
+
+PhysX - https://github.com/NVIDIAGameWorks/PhysX-3.4
+    3D physics engine by Nvidia
+    
+Box2D - https://github.com/erincatto/Box2D
+    2D physics engine
+
+
+-- Collections --
+Boost - https://www.boost.org/doc/libs/1_69_0/libs/libraries.htm
+    Easily one of the most respectible colletion of C++ libraries out there
+    Has lots of large scale facilities, like networking and concurrency
+    Keep in mind, many of the libraries have wound their way into the standard.
+    Some are header files, while the big ones will require more setup to use
+
+stb - https://github.com/nothings/stb
+    bag of game dev goodies
+    used all over the place.
+    all header files so they are easy to implement & use
