@@ -644,6 +644,8 @@ int const val2 = 2;
     50% from memory management. And I'm here to tell you that C++ offers many facilities which automate and make it 
     relatively painless. Is it as easy as using a Garbage Collecttor? No, but in my opinion that is a feature, not a problem.
 
+	The reason that C++ can have any claim 
+
     Before discussing different strategies, we first have to cover what kinds of memory there are and where it is is located.
     There are 3 maing segments of memory in C++. The data/code, the stack, and the heap. The data/code segment is where all
     static data and code sits. Global variables, static strings (stuff inside ""'s) and other fixed sized data. The stack is 
@@ -652,37 +654,48 @@ int const val2 = 2;
     Lastly, the heap sits at the other side of the memory space and grows down. All dynamic allocations happens from here, and 
     is managed by you, the programmer. When people talk about "manual memory management", the heap is the area they are referring
     to.
+
  */
 
-//  Global variables are declared outside of functions and classes. I advise to use them sparingly, if ever at all.
+//  Global variables are declared outside of functions and classes. I advise to use them sparingly, if at all.
 int global_var = 15;
 
 //  Static variables in functions and structs/classes act like other languages, with only one instance per running program.
 int example_static_counter()
 {
-    static int counter = 0; //this only is initialized to zero once.
+    static int counter = 0; //this only is initialized to zero once the first time this function is called.
     return counter++;       //monotomically increasing counter
 }
 //  The difference between static and globals is when they are initialized and what scope they are available in. Global, like
 //  the name implies, is visiable to all, while static is only visible in its enclosing scope.
 
-//  The use of static outside of functions/classes have different semantics but are still located in the same memory segment.
+/*
+	Static and global variables have their place, but the bread and butter of the language is located in the stack. All variables
+	declared inside the scope of a function are local, both fundamental types and classes. Their lifetime is equivalent to starting
+	when the variable first appears and ends when the function exits. 
+*/
+void function(int paramA, int paramB) //lifetime of arguments begins before the function starts executing
+{
+    float A;
+    A = 5.0f;
+	ClassType B(2.0); //LocalB is constructed here, so it begins its lifetime here
+    /* do stuff */
+} // after the function exists, both the parameters and local variables (includeing the class) ends its lifetime
 
 /*
-    The first type of management to talk about is local/stack memory. This is the most simple type and is done automatically
-    for you. Every time you enter a function (including main), a section of memory is allocated from the stack. This stack 
-    is the call-stack, or the data structure that manages which function is currently being called, which one to return to once
-    once the function terminates, parameters, and variables that are local to the function.
-
-    All of the values are allocated on the call stack, and will automatically dissapear when the function returns. You don't
-    have to do anything, it is all handled by the compiler and operating system. If possible, prefer using this as much as possible
+	For an variable to begin its lifetime, it first needs to be initialized. C++ has probably too many ways to initialize something,
+	but for all intents and purposes, initialization is through three mechanisims. A constructor which uses parenthesis, an equal sign,
+	or an initializor which uses curly braces.
 */
-void function(int paramA, int paramB)
-{
-    float localA;
-    int localB;
-    bool localC;
-}
+int init_a(100);
+int init_b = 100;
+int init_c{100};
+
+/*
+	There are lots of names for the different combinations of object types and initialization method, but all use one of the three patterns.
+
+	Once an object begins their lifetime, operations can be done as per 
+*/
 
 //  Not all things can be stored on the stack though. Persistant data structures are a prime example. Fortunately, a standard
 //  library container will handle all sorts of situations and can be treated like a local variable. This is thanks in part
