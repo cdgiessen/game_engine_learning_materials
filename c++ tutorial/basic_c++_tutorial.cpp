@@ -24,7 +24,7 @@
 
     It is one of the few languages that is standardized by International Organization for Standardization (ISO).
     As such, no one company controls the language. If one wants to change the language, it has to go through the 
-    standards commitee. If you don't like something, write a paper and send it in, they are always looking for
+    standards committee. If you don't like something, write a paper and send it in, they are always looking for
     fresh ideas and people who want to better the tools they work in.
 
     The best way to approach it is in piece-meal. Lots of features are only useful in specific cases, and can
@@ -44,8 +44,8 @@
     Compiled is because C++ code turns into executable binary directly. Much of the speed of the language stems from
     that fact. 
 
-    Static means that constructs don't change during run time. Dynamic features are explicitely opt-in. Size and location
-    of functions and variables are constant. This imposes some restrictions, but enables great optomizations.
+    Static means that constructs don't change during run time. Dynamic features are explicitly opt-in. Size and location
+    of functions and variables are constant. This imposes some restrictions, but enables great optimizations.
 
     Strongly-typed is touted as a bug prevention and program correctness guarantee. Turn runtime errors into compile
     errors. If there is one reason people use C++ over C, it is because the type system helps developers write fewer bugs.
@@ -62,7 +62,7 @@
     * 3 major compilers (gcc, clang, & msvc). No one source of truth, and multiple competing implementations
     * Robust Standard library
     * Language features that make custom types as usable as fundamental types. 
-    * I can see straight to binary. No unaproachable black box. BTW Compiler Explorer is awesome https://godbolt.org/
+    * I can see straight to binary. No unapproachable black box. BTW Compiler Explorer is awesome https://godbolt.org/
     
     -- Things I don't like --
     * There are many dark corners. Nearly fifty years of design decision will do that to a language.
@@ -70,7 +70,12 @@
     * C++ can be slow to compile. The standard's committee is working on it, but its slow progress
     * Tooling is both world class and abysmal at times. 
     * If C is a gun that you can shoot your foot with, C++ is a shotgun to blow your head off
-    
+*/
+
+/*
+    If you have any suggestions or comments, please dont hesitate to hit me up.
+
+    Also, this guide is a starting point, so if you have questions, google is you best friend. 
 */
 
 ///////////
@@ -103,7 +108,7 @@ double doubleA; //commonly 64 bit
 
 //  Integral types can be declared unsigned.
 unsigned int intB;
-//  In my opinion, unsigned types are only useful in a handful of scenarioes, so it isn't necessary
+//  In my opinion, unsigned types are only useful in a handful of scenario's, so it isn't necessary
 //  to be very familiar with them.
 
 //  Character
@@ -139,11 +144,11 @@ int ExampleFunction(int argument)
     return 0;
 }
 
-//can overload functions with different signatures (arugments)
+//can overload functions with different signatures (arguments)
 void FunctionWithOverloads()
 {
 }
-void FunctionWithOverloads(float different_arugment)
+void FunctionWithOverloads(float different_argument)
 {
 }
 
@@ -168,7 +173,7 @@ void FunctionDefinition()
     definition can only happen one time and one only time
 */
 
-//  By default, C++ uses pass-by-copy, so arugments are copied when calling functions
+//  By default, C++ uses pass-by-copy, so arguments are copied when calling functions
 //  changes made to the arguments inside the function are local to the function
 //  there is a way to get around this, but that a later topic
 void FunctionWithLocalVariables(int argument)
@@ -184,7 +189,7 @@ void CallAFunction()
 {
     FunctionWithOverloads(); //no args
 
-    int number = ExampleFunction(5); //with 1 integer arugment that returns an integer
+    int number = ExampleFunction(5); //with 1 integer argument that returns an integer
 }
 
 ///////////
@@ -208,7 +213,7 @@ void enum_example()
 }
 
 //  Enums in C++ come from C, which lacks a lot of type safety. One instance of this behaviour is
-//  that enum's are implicitely treated as integers, which can have suprising results. There is
+//  that enum's are implicitly treated as integers, which can have suprising results. There is
 //  a way to avoid this, and that is the enum class.
 
 enum class Color
@@ -283,6 +288,17 @@ void basic_syntax_example()
     default: /* default case */
     }
     //  Note: switch statements fallthrough, so don't forget to add the break;
+
+    //    std::cout - default output
+    #include <iostream>
+    std::cout << "Hello world!\n";
+
+    
+    //    std::cin - default input
+    #include <iostream> 
+    int n;
+    std::cout << "Enter a number: ";
+    std::cin >> n; //n now holds the inputted number
 }
 
 /////////////////////////
@@ -332,7 +348,7 @@ void example_debug_mode()
 
 //  Asserting stuff still requires macros, though C++20 includes several facilities that reduce the need.
 #include <cassert>
-void example_asser()
+void example_assert()
 {
     assert(2 + 2 == 4);
 }
@@ -375,11 +391,11 @@ void example_asser()
     Firstly a compiler works on a per C++ file level. Each of these are called translation units. A translation 
     unit is processed c++ code, which is when all macros are evaluated. The major takeaway here is that all the of the 
     included files are expanded in place, so the resulting translation unit might be much larger than the
-    original C++ file. After macro evalutaion, the code is compiled.
+    original C++ file. After macro evaluation, the code is compiled.
 
     A compilers primary output is an object file, contrary to expectation. An object file contains assembly code
     but lacks the hooking up of functions to their final addresses among a few other things. On Linux, object files
-    use the (.o) extenstion while on windows they use the (.obj) extension.
+    use the (.o) extension while on windows they use the (.obj) extension.
 
     These object files are the input for the linker, a program that is responsible for creating runnable 
     executables and shared libraries (.so) on linux or dynamic link libraries (.dll) on windows.
@@ -402,7 +418,7 @@ void example_asser()
     That means you can't create a reference without an object to reference.
     The code int& ref_value; doesn't have an object to reference, so it won't compile. The exception
     to this rule is in function parameters and class definitions. A function parameter will be filled in
-    when the function is called so the requirement is fufilled then and a class has special syntax to make
+    when the function is called so the requirement is fulfilled then and a class has special syntax to make
     sure that its references are valid (more in the section on classes, namely constructors)
 
     The second property is that they cannot be re-assigned. Once an object is referenced, that object and that
@@ -443,11 +459,9 @@ void example_reference_in_function(int &value, float &other_value)
 
 //  The syntax is to have a type with an ampersand following it.
 int *name_one;
-//  or
-int *name_two;
 
 //  Pointers are like references, save for two main properties. They CAN be null (not point to anything) and CAN
-//  be reassinged. This makes it very flexible and likewise very easy to misuse. Before using a pointer, you pretty
+//  be reassigned. This makes it very flexible and likewise very easy to misuse. Before using a pointer, you pretty
 //  much always have to makes sure that it's value isn't null, as dereferencing a null pointer will crash your program.
 
 //  There is also a keyword you should use when checking if a pointer is null, which is nullptr.
@@ -462,7 +476,7 @@ void example_pointer()
     }
 }
 
-//  The other property pointers have over references is pointer arithmatic, which is the ability to treat them like numbers
+//  The other property pointers have over references is pointer arithmetic, which is the ability to treat them like numbers
 //  This is generally what throws people for a loop, as in C it is pretty much necessary to get anything significant done.
 //  In C++, there are enough features that make it mostly unecessary, as such I won't be covering it here.
 
@@ -471,7 +485,7 @@ void example_pointer()
 /////////////////////////
 
 /*  
-    Classes and structs are a cornerstone of organiziging data and code in C++. They are the most common
+    Classes and structs are a cornerstone of organizing data and code in C++. They are the most common
     way of creating custom types with specific behavior. 
 
     Some languages have many different units of composition. Classes, interfaces, abstract classes, structs, etc.
@@ -518,7 +532,7 @@ class example_class_accessors
 };
 
 /*
-    Classes inherite from other classes, which is useful to provide a base set of operations to child classes.
+    Classes inherit from other classes, which is useful to provide a base set of operations to child classes.
 
     Unlike other Object Oriented Languages, C++ has no default base class. This give developers much more control
     over the behavior of their classes by not mandating a default set of operations. 
@@ -526,7 +540,7 @@ class example_class_accessors
 
 class example_inherited_class : example_class
 {
-    // can access public and proctected elements from the base class
+    // can access public and protected elements from the base class
 };
 
 /*
@@ -565,23 +579,67 @@ class example_child : example_base
 */
 
 /*
+    -- POD --
+
     As previously mentioned, the differene between classes and structs is minimal. Therefore, it is mostly a style choice as for 
     which to use.
 
     My preference is to use structs when you need a bag of data. Like a bunch of settings or data packets.
-    Classes are "smart" meaning they have complex setup, usage, and teardown.
+    Classes are "smart" meaning they have complex setup, usage, and teardown. 
 */
-struct POD
-{ //POD stands for Piece Of Data
-    int x;
-    float y;
+
+//POD stands for Piece Of Data
+struct character_data
+{ 
+    int x = 0;
+    int y = 0;
+    float health = 100.0f;
+    bool isOnGround = false;
+    bool isPoisoned = false;   
+    bool isDead = false;
 };
 
 /*
+    -- Operator Overloading --
+
+    C++ allows classes/structs to define custom operators on themselves. This allows natural syntax in user code. A prime example
+    is overloading the == operator and != operator, which allows a custom comparator to be written easily.
+
+    Almost all operators can be overloaded. An obvious use cases is on algebraic types, like complex or vectors. The notable exception
+    is the dot operator, which is already defined to be member access (like obj.x). 
+*/
+
+class OpOverload {
+    int data_member = 0; // for dummy purposes
+
+    //is equal
+    bool operator==(OpOverload const& other){
+        return data_member == other.data_member;
+    }
+    
+    // is not equal
+    bool operator!=(OpOverload const& other){
+        return data_member != other.data_member;
+    }
+
+    //assign equals
+    OpOverload& operator+=(OpOverload const& other){
+        data_member += other.data_member;
+        return *this; //needed to get a reference to this
+    }
+    //addition - note that it returns a new object, not a reference.
+    OpOverload operator+=(OpOverload const& other){
+        OpOverload op; //new object
+        data_member += other.data_member;
+        return op; //needed to get a reference to this
+    }
+}
+
+/*
+    -- Constructors --
+
     Construction is the way to establish invariants (read, setup the class). Complex classes 
-    will have complex construction but that shouldn't surprise anyone 
-    Descruction is the way to clean up after oneself. This is heavily related to memory management,
-    which is discussed later
+    will have complex construction but that shouldn't surprise anyone.
 */
 class ConstructionExample
 {
@@ -595,17 +653,51 @@ class ConstructionExample
     //Destructor. Cannot have any arguments
     ~ConstructionExample();
 
+    /*
+        If a constructor runs at the beginning of an objects life, the destructor runs at the end. This is necessary to do things like
+        tear down after you are done with an object. Trivial objects will have trivial desctructors, as there is nothing to do. In general,
+        if you need a destructor, you will know it. Otherwise it is fine to omit it.
+        
+    */
+    virtual ~ConstructionExample(); // necessary for classes that have inheritance. The details are more complicated than I'd care to explain
+    /*
+        C++ has the concept of "special member functions" which are functions that can be automatically generated by the compiler.
+        These functions all have the property of dealing with construction (and destruction). The most basic case is that if you
+        declare a constructor with no parameters and use the = default syntax, the compiler will generate it for you.  
+        The next most basic is the automatic generation of a destructor, even if it isn't written in the class. 
+    */
+    ConstructionExample() = default; //Ask the compiler to generate the function for you. Useful if its trivial
+
+    ConstructionExample() = delete; //Tells the compiler to not generate the function and to disallow user defined constructors
+    // Very useful for making sure the compiler doesn't do something silly. Usually its not the constructor/destructor where this is used.
+
     // explicit marks the constructor so that no conversions will take place for the arguments.
-    // It is considered good practice to
+    // It is considered good practice to use explicit on all constructors
     explicit ConstructionExample(int val);
 
     // Initializer lists are the way to take constructor arguments and assign them to member variables
     ConstructionExample(int a, float b) : a(a), b(b);
+
+    /*  
+        C++ has the concept of Copy Construction & its twin, Copy-Assignment Construction. It is used when you are 
+        constructing copies of objects. They also are in the "special member functions" and have all of those weird default/delete
+        shenanigans.  
+        
+        A Copy Constructor must have the same name as the class, its return type needs to be a reference to the class, and it takes
+        a const reference as an input parameter (and that is the thing which gets copied)  
+    */
+    //Return type        use same name as class  Take in a parameter that is the other class to copy
+    ConstructionExample& ConstructionExample(    ConstructionExample const& other){
+       //copy data elements here
+    }
+
+    //Return type        operator overload  input argument 
+    ConstructionExample& operator=(         ConstructionExample const&) {
+       return *this;// creates a reference to "this", which is the object the Copy-Assignment constructor is being called on.
+    }
+   
 };
 
-//////////
-// Auto //
-//////////
 
 ///////////////////////
 // Const Correctness //
@@ -629,11 +721,68 @@ int const val2 = 2;
     More than just variables can be const. Pointers, references, classes, structs, parameters, functions, pretty
     much everything can be made const.
 
-    Const Correctness is the principle of appliying const to everything except for things that need to be mutable.
-    This has two benefits, performance and bug-catching. Compilers can do some very fancy optomizations if it knows
+    Const Correctness is the principle of applying const to everything except for things that need to be mutable.
+    This has two benefits, performance and bug-catching. Compilers can do some very fancy optimizations if it knows
     something's value doesn't change, and it will also catch cases of bad use of some code, simply because it is
     mutating something in a const context.
 */
+
+///////////////////
+// For-Each Loop //
+///////////////////
+
+/* 
+    A handy construct to know about is the for-each loop. It is a specialized form of the for loop that iterates over 
+    an entire collection with an easy to use syntax. 
+*/
+
+int example_for_each_loop(){
+
+    std::vector<int> numbers = {1,4,3,7,4,8,9,3};
+    int total = 0;
+    for(int& num : numbers) {
+        total += num;
+    }
+    return total;
+}
+
+/*
+    Remember to use the & after the type, as otherwise it makes a copy instead of a reference, possibly costing performance and
+    if you are modifying the value inside the for-each loop, the modification will be lost (cause it was a copy!)
+
+    This is my goto method for iterating over a container. Especially when combined with the following item. (auto)
+*/
+
+//////////
+// Auto //
+//////////
+
+/*
+    C++ is a statically typed language, but that doesn't mean you have to type out all of the variables all of the time.
+    The auto keyword exists to help you work faster without loosing the benefits of strong typing.
+
+    The mechanism that allows this to work is type deduction, which is the ability of the compiler to deduce the type of the
+    variable used.
+*/
+void example_auto(){
+    auto varA = 0.0f; //type is deduced to be float
+    auto varB = false; //type is bool
+    auto varC = fun_call_with_return_type(); //type is whatever the function's return type is.
+
+    std::vector<int> vec_of_stuff;
+    for(auto& elem : vec_of_stuff){ //can use auto in for-each loop 
+        //makes it super easy to traverse an entire container
+    }
+}
+
+/*
+    Auto is possible to be used in more places (like function return types and function parameters) but for the most part auto
+    is most useful to save from typing out huge type declarations multiple times. 
+
+    So I recommend using it for for-each loops and not having to type out variable declarations all the time. Using it too much may
+    lead to code that is hard to reason about, as you have to chase down what the exact type is or hope your IDE tells you tye type.
+*/
+
 
 ///////////////////////
 // Memory Management //
@@ -647,15 +796,15 @@ int const val2 = 2;
 	The reason that C++ can have any claim 
 
     Before discussing different strategies, we first have to cover what kinds of memory there are and where it is is located.
-    There are 3 maing segments of memory in C++. The data/code, the stack, and the heap. The data/code segment is where all
+    There are 3 main segments of memory in C++. The data/code, the stack, and the heap. The data/code segment is where all
     static data and code sits. Global variables, static strings (stuff inside ""'s) and other fixed sized data. The stack is 
     the call stack, where your program executes. Local variables to functions will reside here. The stack's memory begins right 
     after the end of the data/code segment. It is managed by the language itself, so its all automatically handeld for you.
     Lastly, the heap sits at the other side of the memory space and grows down. All dynamic allocations happens from here, and 
     is managed by you, the programmer. When people talk about "manual memory management", the heap is the area they are referring
-    to.
+    to. 
 
- */
+    -- Global & Static -- */
 
 //  Global variables are declared outside of functions and classes. I advise to use them sparingly, if at all.
 int global_var = 15;
@@ -664,28 +813,35 @@ int global_var = 15;
 int example_static_counter()
 {
     static int counter = 0; //this only is initialized to zero once the first time this function is called.
-    return counter++;       //monotomically increasing counter
+    return counter++;       //monotonically increasing counter
 }
 //  The difference between static and globals is when they are initialized and what scope they are available in. Global, like
-//  the name implies, is visiable to all, while static is only visible in its enclosing scope.
+//  the name implies, is visible to all, while static is only visible in its enclosing scope.
 
 /*
-	Static and global variables have their place, but the bread and butter of the language is located in the stack. All variables
-	declared inside the scope of a function are local, both fundamental types and classes. Their lifetime is equivalent to starting
-	when the variable first appears and ends when the function exits. 
+	Static and global variables have their place, but the bread and butter of the language is within what is called local scope.
+    That is, scopes inside of a function, class, namespace, or other scope limiting construct. 
 */
-void function(int paramA, int paramB) //lifetime of arguments begins before the function starts executing
+void example_local_scope(int paramA, int paramB)
 {
     float A;
     A = 5.0f;
-	ClassType B(2.0); //LocalB is constructed here, so it begins its lifetime here
+	ClassType B(2.0); // B is local to the function, so it exists inside the functions scope
     /* do stuff */
-} // after the function exists, both the parameters and local variables (includeing the class) ends its lifetime
-
+} 
 /*
+    -- Initialization --
+
+    At C++'s core is the subject of lifetimes and initialization. This works hand in hand with memory management, as such a brief explanation of it
+    is required.
+
+    Lifetime is the time in which an object is created and when it is destroyed. A global lifetime means it is created when execution begins
+    (before calling main) and ends after the program exits. Local scope is entirely within the enclosing scope. So an variable inside a function
+    has its lifetime begin at the time of the function call and end when the function returns.
+
 	For an variable to begin its lifetime, it first needs to be initialized. C++ has probably too many ways to initialize something,
-	but for all intents and purposes, initialization is through three mechanisims. A constructor which uses parenthesis, an equal sign,
-	or an initializor which uses curly braces.
+	but for all intents and purposes, initialization is through three mechanisms. A constructor which uses parenthesis, an equal sign,
+	or an initializer which uses curly braces.
 */
 int init_a(100);
 int init_b = 100;
@@ -693,24 +849,122 @@ int init_c{100};
 
 /*
 	There are lots of names for the different combinations of object types and initialization method, but all use one of the three patterns.
+    The thing to realize about initialization is that it is a recursive property. That means that if a class uses another class as a member
+    variable (not as a pointer), it has to also know how to initialize that object. Well designed classes will make that easy to do, either by
+    using defaults or by needing arguments for a constructor. Note, that if a class has a reference to an object, there must be an already
+    existing object in which to reference.
 
-	Once an object begins their lifetime, operations can be done as per 
+	After an objects constructor is called, it begins their lifetime, and operations can be done as per normal. And when they end their lifetime,
+    their destructor is called. On simple objects (including primitives like int and bool), this will be a no-op, as nothing needs to to be done. 
+
+    -- Call Stack --
+
+    Where exactly does a local scope exist in memory? Globals and statics reside in the data segment of the executable, but that can't be expanded.
+    We rely on the stack, in which the main function is the first scope pushed onto the stack. Whenever a new function is called, a stack frame is
+    pushed onto the stack, and contains enough space for all of its member variables & classes. When the function exits, all those variables and 
+    classes are destructed and the memory is freed (from the stack).
+
+    Tying the call stack and lifetime together has the great property of being 100% deterministic. There is no way to leak memory with it, as 
+    the only way to get more memory and free it is a function call and exit.
+
+    Unfortunately, that isn't very helpful when needing to do more interesting work. While the stack can have a lot of data on it, the size of 
+    each stack frame (read, function & its variables) is set in stone at compile time. That is to say, you couldn't have a dynamically sized
+    array local to a function. There is a solution, and it is also the namesake for what is called "manual memory management"
+
+    -- The Heap --
+
+    The heap is the third and final segment of memory. It is managed by the operating system (not by automated language features).
+
+    There are three operations that one can do on the heap: allocation, accessing, and releasing.
 */
 
-//  Not all things can be stored on the stack though. Persistant data structures are a prime example. Fortunately, a standard
-//  library container will handle all sorts of situations and can be treated like a local variable. This is thanks in part
-//  to a design principle call RAII, or Resource Aquisition Is Initialization
+//  Allocation is done through the new keyword, and it returns a pointer to an object stored on the heap
+ObjectType *obj = new Object(arg1, arg2, ...); 
 
-// unique_ptr & containers (vectors & strings are prime examples)
+//  Accessing is done by "dereferencing" a pointer, and has 2 syntaxes, one for fundamental typyes and one for classes
 
-// shared_ptr and other object management scheme
-// shared_ptr for multiple owners
-//  arena/pool manager which controls objects but lets others access data.
+int local_value = *heap_value; //access heap allocated data and store its value in a local_value
 
+int local_value = HeapClass->MemberVariable; //similar as above, but the data is a member of a class
 
-///////////////////////
-// Standard Libarary //
-///////////////////////
+HeapClass->MemberFunction(/*args*/); //call a function on a heap allocated class
+
+//  Releasing is done using the delete keyword
+delete obj; //obj must be a pointer type
+
+/* 
+    There exists a problem though, how do we remember to call delete for every time heap object? Well, in short, the language has
+    no guaranteed for that. If you forget to call delete, and the pointer (which is stored as a local variable) goes out of scope,
+    that heap object has now become a memory leak. This is "bad". While it is true that once your program exits, all of its memory
+    (data/code, stack, and heap) is freed, for long running programs this is unacceptable.  
+
+    The solution is to attach the lifetime of heap allocated objects to stack allocated objects. Simply put, wrap the new/delete 
+    calls into a class that manages the underlying data. Tying the two together means you can't ever forget to call delete because
+    you never have to call delete manually in the first place. This is an idiom called RAII, or resource aquisition is initialization.
+    It isn't anything new, but is a powerful mechanism for deterministic heap memory allocation.
+
+    Whats even better is that there is a standard library type that does the wrapping for you! Its name is std::unique_ptr.
+*/
+
+//Wrapper type for heap allocated objects
+#include <memory>
+void example_unique_ptr(){
+
+    std::unique_ptr<ObjectType> unique_obj = std::make_unique<ObjectType>(arg1, arg2);
+
+    ObjectType *ptr_to_obj = unique_obj.get(); //returns a raw pointer to object, useful for api's like OpenGL.
+}//unique_obj gets destroyed here
+
+/*
+    Notice the std::make_unique utility function. 
+
+    Whats even better is that all of the standard library types use idiom. So no need to worry about standard library leaking memory
+    left and right. The containers from the standard (including string) are essentially wrappers for a pointer to the heap with special 
+    functions to access the data. 
+
+    While RAII is awesome and you should use it, there are some situation where it doesn't quite solve all situations.
+    
+    std::unique_ptr has a drawback that it can't have multiple owners. Fortunately it has a cousin type std::shared_prt for that
+    specific problem. Shadred pointers are reference counted pointers, which keep track of everyone who has access to the data.
+    Shared Pointers work by having an external control block that is allocated on the heap. Keep that in mind as unique pointers cost
+    the same as a raw pointer, while shared pointers have more overhad.
+*/
+#include <memory>
+void example_shared_ptr() {
+    std::shared_prt<ObjectType> shared_obj = std::make_shared<ObjectType>(arg1, arg2);
+
+    external_object.shared_object_member_variable = shared_object; //now the external_object can access the shared_obj
+} //shared_obj will be destroyed when all objects referencing it are destroyed.
+
+/*
+    shared_ptr has a weakness in that if the chain of ownership (who references who) forms a cycle, the object will never be destroyed
+    because it is keeping itself alive. There is a fix, and that is to use std::weak_ptr, which doesn't take ownership (keep things alive).
+    Thing to note is that you can't use a weak_ptr directly, you have to promote it to a shared_ptr.
+
+    unique_ptr, shared_ptr, and weak_ptr form what are called "Smart Pointers", and should be used instead of raw pointers directly.
+
+    There is still one type of situation where smart pointers are not a great fit. Data which is highly connected, like a graph. While we
+    *can* use share_ptrs to connect objects together, it is more straightforward to seperate who owns the data and the how the data connects
+    to eachother.
+
+    A example of this idea put in practice a graph. A manager class handles allocating, accessing, and freeing data (using possible a hash table 
+    to store the elements), while each element uses integer id's to refer to elements in the graph it is connected with. This will undoubtedly
+    be easier to think about (imagine how you'd double check that there are no cycles in the graph? ) and is more space efficient (as each
+    shared_ptr has a control block as well as the heap object). This pattern is sometimes called an arena.
+
+    -- Wrap up --
+
+    If there is one thing to take away from all this is that you should use local variables as much as possible. Being on the stack makes them
+    cheap & quick. Next is managed things like standard library containers and unique_ptr. Finally, use managed arena's and shared_ptrs as a last 
+    resort.
+
+    Local Variables > containers/unique_ptr > arenas/share_ptr
+
+*/
+
+//////////////////////
+// Standard Library //
+//////////////////////
 
 /*
     The C++ Standard Library (sometimes called the STL) is filled with lots of goodies. I suggest you use 
@@ -784,7 +1038,7 @@ void example_unordered_map()
 
     Iterators are very powerful when combined with the algorithms library. The algorithms work on any container that 
     satisfy its conditions, so you can write custom containers and have them work with over 100+ algorithms.
-    This is a very powerful feature, as it decouples the container and algorithms in a modular and extensible fasion.  
+    This is a very powerful feature, as it decouples the container and algorithms in a modular and extensible fashion.  
 
     Iterators can be obtained directly from the container. The std::begin(container) and std::end(container) functions
     return an interator to the respective position in the container. They also are often used as return types from 
@@ -857,12 +1111,11 @@ void example_sort()
     //  sort also takes in a custom comparator
     std::sort(s.begin(), s.end(), std::greater<int>());
 
-    //  and a lambda can be used as well - very nice for specialized sorting routines
+    //  and a lambda can be used as well - very nice for specialized sorting routines -- see below
     std::sort(s.begin(), s.end(),
               [](int a, int b) {
                   return a > b;
               });
-    //  Lambdas are anonymous functions
 }
 
 /*
@@ -870,23 +1123,9 @@ void example_sort()
 
     The easiest way of handling input and output with the outside world. 
     Both from the consol and from files on the system.
+
+    Contains the std::cout and std::cin previously shown. 
 */
-
-//    std::cout - default output
-#include <iostream>
-void example_cout()
-{
-    std::cout << "Hello world!\n";
-}
-
-//    std::cin - default input
-#include <iostream>
-void example_cin()
-{
-    int n;
-    std::cout << "Enter a number: ";
-    std::cin >> n; //n now holds the inputted number
-}
 
 //    fstream - loading & saving files, binary and text
 #include <iostream>
@@ -911,9 +1150,11 @@ void example_fstream()
 
     thread - Threads, mutexes, semaphores & other multithreading goodies
         There be dragons. Threads are not childproofed and you can easily do strange things with powerful tools
-    
-    random - pseudorandom number generators that aren't crap (looking at you C's rand() )
-        If you need good random numbers, this has what you need
+        But on that note, its pretty easy to do fork/join threading, so don't be afraid to do that if it works well
+        for your use case.
+
+    random - pseudorandom number generators.
+        If you need good random numbers, this has what you should use (looking at you C's rand() )
     
     chrono - time and date facilities
         While some hate how cumbersome it is to use, this makes sure you can't muck it up. Time/date is notoriously
@@ -921,13 +1162,66 @@ void example_fstream()
     
     filesystem - C++17 and up - cross platform filesystem handling
     
-    optional - handy type that wraps a value and boolean flag up together.
-        helps with expressing intent
+    optional - C++17 - Wraps a value and boolean flag up together. Helps with expressing intent
     
-    variant - a typesafe union. Also can be as a replacement for traditional inheritance.
+    variant - C++17 - A typesafe union. Also can be as a replacement for traditional inheritance/polymorphism.
 
 */
+
+/////////////
+// Lambdas //
+/////////////
+
+/*
+    C++11 adds the very useful feature of lambdas, or anonymous functions. By allowing the creation of functions anywhere and not 
+    requiring a name, they are a powerful feature. 
+
+    The technical basis is that a lambda is a "callable", meaning it is an object that can be called as if it was a function. This is
+    also known as a function object, and can be used in places of a function. 
+
+    What makes lambdas special is that they can also "capture" is beyond the capabilities of a pure function. It can save a few data
+    members and pointers/references to be used for later use.
+
+    A lambda can have any of the following forms:
+    [ captures ] ( params ) -> ret_type { body } 	 	
+    [ captures ] ( params ) { body } 	 	
+    [ captures ] { body } 
+
+    captures is a comma seperated list of objects, with two special possible values, = and &. = means to copy and & means to reference.
+    Copy will take whatever values and put it into the capture (which can be costly if the size if large). & will only reference it, which 
+    saves space, but you have to be sure the object still exists. They must be put first if used at all, and only one or the other can be use,
+    or neither but not both.
+
+    params, ret_type, and body are just the parameters, return type, and body of an equivalent function.
+
+    Lambdas are useful for defining call back functions inplace. Makes so you don't have to define a function that is only ever called
+    in one place.
+*/
+register_command("Turn On Light-bulb", 
+    [&light_controller]() {
+        light_controller.on();
+    }
+);
+
+//  They are also very useful for defining specializations to be used in all sorts of places. Sorting, searching, hashing, etc
+
+//  Here, we can sort the elements based in a custom defined manner. Can be extended beyond basic types (ie classes) 
+std::sort(s.begin(), s.end(), 
+    [](int a, int b) {
+        return a > b;   
+    }
+);
 
 ////////////////////
 // Move Semantics //
 ////////////////////
+
+/*
+    This is like a copy constructor, but instead "moves" the underlying data. If its all local values, this doesn't mean anything, but if
+    a class (like std::vector) owned some heap data, moving this object means transferring ownership. In essence, move semantics implies 
+    ownership semantics for resources. A resource could be a heap allocated pointer, a file system handle, a socket, or anything other 
+    thing.
+
+    Move semantics is beyond the scope of this tutorial, but a good thing to know about as many "advanced" features of the language make 
+    use of them to enable performance optimizations.  
+*/
